@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>大括号与指令</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        window.onload = function(){
+            const vm = new Vue({
+                el:"#app",// el : 指定根element(选择器)
+                data:{
+                    msg:"hello Vue",
+                    url:"https://www.baidu.com/"
+                },
+                methods:{
+                    test1(){
+                        alert("hello vue")
+                    },
+                    getUrl(url){
+                        alert(url)
+                    }
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+<div id="app">
+    <h1>1.双大括号表达式</h1>
+    <p>{{msg}}</p>
+    <p>{{msg.toUpperCase()}}</p> <!--双大括号里面为js代码-->
+    <h1>2.指令一:强制数据绑定</h1>
+    <a href="url">点我也去不了百度</a><br>
+    <a :href="url">点我才能去百度</a><br>
+    <h1>3.指令二:绑定事件监听</h1>
+    <!--在js里面onclick = "test1",指定单击事件处理函数,不直接调用方法,也就不方便传参-->
+    <button @click = "test1">点我一下</button><br>
+    <button @click = "getUrl(url)">获取url</button><br>
+
+</div>
+
+</body>
+</html>

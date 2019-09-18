@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件渲染</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        window.onload = function(){
+            const vm = new Vue({
+                el:"#demo1",// el : 指定根element(选择器)
+                data:{
+                    ok:true
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div id = "demo1">
+    <p v-if="ok">告白成功</p>
+    <p v-else>告白失败</p>
+    <hr>
+    <p v-show="ok">求婚成功</p>
+    <p v-show="!ok">求婚失败</p>
+    <button @click="ok = !ok">切换</button>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>:class与:style绑定</title>
+    <style>
+        .class0{
+            color:red;
+        }
+        .class1{
+            font-size:50px;
+        }
+    </style>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        window.onload = function(){
+            const vm = new Vue({
+                el:"#demo1",// el : 指定根element(选择器)
+                data:{
+                    myClass1:'class1',
+                    hasClass0:true,
+                    hasClass1:false,
+                    activeColor:"red",
+                    fontSize:"50px"
+
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div id="demo1">
+    <h2>1.:class绑定</h2>
+    <p class = "class0" :class = "myClass1">:class的值是字符串</p>
+    <p :class = "{class0:hasClass0,class1:hasClass1}">:class得值是对象</p>
+    <button @click="hasClass0 = !hasClass0;hasClass1 = !hasClass1;">切换</button>
+    <p :class = "['class0',myClass1]">:class得值是数组</p>
+    <h2>2.:style绑定</h2>
+    <p :style="{color:activeColor,fontSize:fontSize}">:style绑定</p>
+</div>
+
+
+</body>
+</html>

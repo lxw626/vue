@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+
+</head>
+<body>
+<div id="app1">
+    <button @click="click1">点我一下</button>
+
+
+
+
+
+    <ol><syso v-for="item in msgs" v-bind:msg="item" ></syso></ol>
+</div>
+
+<script>
+    // 自定义输出模板
+    Vue.component('syso', {
+        props: ['msg'],
+        template: '<li>{{ msg }}</li>'
+    })
+
+    var myData = {
+        age:18,
+        msgs: []
+    };
+    var vm = new Vue({
+        el: "#app1",
+        data: myData,
+        methods: {
+            click1: function () {
+
+            }
+        }
+    });
+    vm.msgs.push("myData.age = "+myData.age)
+    vm.msgs.push("vm.age = "+vm.age)
+
+</script>
+
+</body>
+</html>

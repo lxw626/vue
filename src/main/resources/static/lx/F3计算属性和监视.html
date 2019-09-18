@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性和监视</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        window.onload = function(){
+            /**
+             * 1.计算属性computed
+             *     存在缓存:多次读取只执行一次getter计算
+             * 2.监视属性watch
+             */
+            const vm = new Vue({
+                el:"#demo",// el : 指定根element(选择器)
+                data:{
+                    firstName:"A",
+                    lastName:"B",
+                    fullName3:""
+
+                },
+                // 计算属性computed,值是个对象,对象里面可以有多个有返回值的方法,也可以有带getter和setter的对象
+                computed:{
+                    fullName1(){
+                        console.log("fullName1:"+this.firstName + " " + this.lastName)
+                        return this.firstName + " " + this.lastName;
+                    },
+                    fullName2(){
+                        return this.firstName + " " + this.lastName;
+                    },
+                    fullName4:{
+                        // 当西药获取当前属性时回调
+                        get(){
+                            return this.firstName + " " + this.lastName;
+                        },
+                        // 作用:监视当前属性值的变化
+                        set(value){
+                            const names = value.split(" ");
+                            this.firstName = names[0];
+                            this.lastName = names[1];
+
+                        }
+                    }
+                },
+                // 配置监视:只是个对象,对象里面可以监视多个属性的变化
+                watch:{
+                    firstName:function(value){
+                        this.fullName3 = value + " " + this.lastName;
+                    }
+                }
+            });
+            // 调用vm的方法来设置监视
+            vm.$watch("lastName",function(value){
+                this.fullName3 = this.firstName + " " + value;
+            })
+        }
+    </script>
+</head>
+<body>
+<div id="demo">
+    姓:<input type="text" placeholder="firstName" v-model="firstName"><br>
+    名:<input type="text" placeholder="lastName" v-model="lastName"><br>
+    姓名1(单项):<input type="text" v-model="fullName1"><br>
+    姓名2(单项):<input type="text" v-model="fullName2"><br>
+    姓名3(单项):<input type="text" v-model="fullName3"><br>
+    姓名4(双向):<input type="text" v-model="fullName4"><br>
+    <p>{{fullName1}}</p>
+    <p>{{fullName1}}</p>
+    <p>{{fullName1}}</p>
+</div>
+
+</body>
+</html>

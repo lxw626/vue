@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HelloVue</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        window.onload = function(){
+            const vm = new Vue({
+                el:"#helloVue",// el : 指定根element(选择器)
+                data:{
+                    userName:"vue"
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+<div id="helloVue">
+    <!--
+        v-model:双向绑定数据指令.
+        1.将data里面的数据绑定到输入框
+        2.将输入框里面的改变绑定到data
+    -->
+    <input type="text" v-model="userName">
+    <!--大括号表达式:读取data里面的数据-->
+    <p>hello:{{userName}}</p>
+</div>
+
+
+</body>
+</html>

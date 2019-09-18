@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        window.onload = function(){
+            const vm = new Vue({
+                el:"#demo1",// el : 指定根element(选择器)
+                data:{
+                    persons:[
+                        {name:'张三',age:18},
+                        {name:'李四',age:19},
+                        {name:'王五',age:20},
+                        {name:'赵六',age:21},
+                    ]
+                },
+                methods:{
+                    addP(p){
+
+                        this.persons.push(p)
+                    },
+                    deleteP(index){
+                        this.persons.splice(index,1)
+                    },
+                    updateP(index,p){
+                        /**
+                         * vue值监听persons本身的变化(persons索引指向的对象是否变化,变了就重新渲染)
+                         * 不监听persons对象内部的变换,
+                         * 变异的数组的方法:1.调用数组的方法,2.更新页面
+                         */
+                        // this.persons[index] = p;
+                        this.persons.splice(index,1,p)
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div id = "demo1">
+    <h2>v-for遍历数组</h2>
+    <ul>
+        <li v-for="(p,index) in persons" :key="index">
+            {{index}}--{{p.age}}--{{p.name}}
+            --<button @click="deleteP(index)">删除</button>
+            --<button @click="updateP(index,{name:'田七',age:18})">更新</button>
+        </li>
+    </ul>
+    <button @click="addP({name:'我是新来的',age:1})">添加</button>
+    <h2>v-for遍历对象</h2>
+    <ul>
+        <li v-for="(value,key) in persons[1]" :key="key">
+            {{key}}={{value}}
+        </li>
+    </ul>
+
+</div>
+
+</body>
+</html>
