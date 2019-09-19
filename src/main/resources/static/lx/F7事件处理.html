@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件处理</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        window.onload = function(){
+            const vm = new Vue({
+                el:"#demo1",// el : 指定根element(选择器)
+                data:{
+
+                },
+                methods:{
+                    test1(event){
+                        alert(event.target.innerHTML)
+                    },
+                    test2(name){
+                        alert(name)
+                    },
+                    test3(name,event){
+                        console.log(name,event.target.innerHTML)
+                    },
+                    test4(){
+                        alert("out")
+                    },
+                    test5(){
+                        alert("inner")
+                    },
+                    test6(event){
+                        console.log(event.keyCode,event.target.value)
+                    },
+                    test7(){
+                        alert('出来吧')
+                    },
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div id = "demo1">
+    <h2>事件绑定 @click</h2>
+    <button @click="test1">不传参数</button><br>
+    <button @click="test2('张三')">传递参数</button><br>
+    <button @click="test3('李四',$event)">传递参数和事件对象</button><br>
+    <h2>事件修饰符</h2>
+    <div style="width: 200px;height: 200px;background: red" @click="test4">
+        <div style="width: 100px;height: 100px;background: green" @click.stop="test5">
+            <p>我冒泡了吗</p>
+        </div>
+    </div>
+    <h2>按键修饰符</h2>
+    <p>输入完按下enter键神奇的事情就发生了</p>
+    <input @keyup.13="test6">
+    <input @keyup.enter="test6">
+    <h2>取消事件的默认行为</h2>
+    <a href="https:www.baidu.com" @click.prevent="test7">我去百度了吗?</a>
+
+</div>
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>模板</title>
+    <title>列表渲染</title>
     <script type="text/javascript" src="../js/vue.js"></script>
     <script>
         window.onload = function(){
@@ -14,7 +14,31 @@
                         {name:'李四',age:19},
                         {name:'王五',age:20},
                         {name:'赵六',age:21},
-                    ]
+                        {name:'王小锤',age:8},
+                    ],
+                    orderByType:0,
+                    searchName:''
+                },
+                computed:{
+                    filterPersons(){
+                      const {persons,orderByType,searchName} = this;
+                        let arr = [...persons]
+                      if(searchName.trim() !=""){
+                          arr = persons.filter(p => p.name.indexOf(searchName)!==-1)
+                      }
+                      if(orderByType){
+                            arr.sort(function(p1,p2){
+                                if(orderByType==1){
+                                    return p1.age-p2.age;
+                                }else{
+                                    return p2.age-p1.age;
+                                }
+                            });
+
+                      }
+
+                      return arr
+                  }
                 },
                 methods:{
                     addP(p){
@@ -32,6 +56,9 @@
                          */
                         // this.persons[index] = p;
                         this.persons.splice(index,1,p)
+                    },
+                    setOrderByType(orderByType){
+                        this.orderByType = orderByType;
                     }
                 }
             });
@@ -48,13 +75,24 @@
             --<button @click="updateP(index,{name:'田七',age:18})">更新</button>
         </li>
     </ul>
-    <button @click="addP({name:'我是新来的',age:1})">添加</button>
+    <button @click="addP({name:'我是新来的',age:1})">添加</button><br>
+
     <h2>v-for遍历对象</h2>
     <ul>
         <li v-for="(value,key) in persons[1]" :key="key">
             {{key}}={{value}}
         </li>
     </ul>
+
+    <input v-model="searchName">
+    <ul>
+        <li v-for="(p,index) in filterPersons" :key="index">
+            {{index}}--{{p.age}}--{{p.name}}
+        </li>
+    </ul>
+    <button @click="setOrderByType(1)">按照年龄升序排列</button>
+    <button @click="setOrderByType(2)">按照年龄降序排列</button>
+    <button @click="setOrderByType(0)">原来的顺序</button>
 
 </div>
 
